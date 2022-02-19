@@ -1,7 +1,8 @@
 import React, { MouseEvent, useState } from 'react'
-import { useRouter } from 'next/router'
 import { ProfileAvatar } from '@/components/ui'
 import { useAuth, useLogOut } from '@/hooks/auth'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 // Mui
 import IconButton from '@mui/material/IconButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -11,6 +12,7 @@ import Stack from '@mui/material/Stack'
 // Mui Icons
 import LogoutIcon from '@mui/icons-material/Logout'
 import NotificationsIcon from '@mui/icons-material/Notifications'
+import SettingsIcon from '@mui/icons-material/Settings'
 
 const AccountMenu = () => {
   const { authUser, isLoading } = useAuth()
@@ -69,6 +71,14 @@ const AccountMenu = () => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
+            <Link href="/settings/profile" passHref>
+              <MenuItem>
+                <ListItemIcon>
+                  <SettingsIcon fontSize="small" />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+            </Link>
             <MenuItem onClick={handleClickSignOut}>
               <ListItemIcon>
                 <LogoutIcon fontSize="small" />

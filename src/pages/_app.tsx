@@ -1,10 +1,11 @@
 import { AppProps } from 'next/app'
-import theme from '@/styles/theme'
-import { ThemeProvider, CssBaseline } from '@mui/material'
-import createEmotionCache from '@/utils/createEmotionCache'
+import { Toaster } from 'react-hot-toast'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { ThemeProvider, CssBaseline } from '@mui/material'
+import theme from '@/styles/theme'
 import { AuthProvider } from '@/hooks/auth'
+import createEmotionCache from '@/utils/createEmotionCache'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -32,7 +33,10 @@ export default function MyApp(props: MyAppProps) {
         <CacheProvider value={emotionCache}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            <Hydrate state={pageProps.dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+            <Toaster position="bottom-right" />
           </ThemeProvider>
         </CacheProvider>
       </AuthProvider>

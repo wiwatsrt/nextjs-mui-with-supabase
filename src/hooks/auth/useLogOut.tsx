@@ -6,7 +6,7 @@ const logout = async () => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
-      throw error
+      throw new Error(error.message)
     }
   } catch (error) {
     throw new Error('Oops. Something went wrong. Please try again later.')
@@ -15,6 +15,7 @@ const logout = async () => {
 
 export const useLogOut = () => {
   const queryClient = useQueryClient()
+
   return useMutation(() => logout(), {
     onSuccess: () => {
       queryClient.removeQueries()

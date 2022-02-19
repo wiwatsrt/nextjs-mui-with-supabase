@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useAuth } from '@/hooks/auth/authContext'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignInWithEmailAndPassword, SignInWithMagicLink } from '@/validations'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAuth } from '@/hooks/auth/authContext'
+import { useRouter } from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup'
 // Mui
+import Alert, { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import Alert, { AlertColor } from '@mui/material/Alert'
 
 type ViewType =
   | 'sign_in'
@@ -66,16 +66,17 @@ const SignInWithEmail = ({ redirectTo, setAuthView }: SignInWithEmailProps) => {
       const { error } = await signIn({ email, password })
 
       if (error) {
-        throw error
+        throw new Error(error.message)
       }
 
       router.push(redirectTo || '/dashboard')
     } catch (error) {
-      console.log(error)
-      setAlertMessage({
-        type: 'error',
-        message: 'Oops. Something went wrong. Please try again later.',
-      })
+      if (error instanceof Error) {
+        setAlertMessage({
+          type: 'error',
+          message: error.message,
+        })
+      }
     }
   }
 
