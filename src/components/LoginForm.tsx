@@ -74,7 +74,7 @@ const SignInWithEmail = ({ redirectTo, setAuthView }: SignInWithEmailProps) => {
       console.log(error)
       setAlertMessage({
         type: 'error',
-        message: error.message,
+        message: 'Oops. Something went wrong. Please try again later.',
       })
     }
   }
@@ -185,7 +185,7 @@ const MagicLink = ({ setAuthView, redirectTo }: MagicLinkProps) => {
     } catch (error) {
       setAlertMessage({
         type: 'error',
-        message: error.message,
+        message: 'Oops. Something went wrong. Please try again later.',
       })
     }
   }
