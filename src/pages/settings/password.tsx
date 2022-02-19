@@ -1,17 +1,17 @@
 import React from 'react'
-import { AppLayout } from '@/components/Layouts'
-import { ChangePassword } from '@/validations/auth'
+import toast from 'react-hot-toast'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { AppLayout } from '@/components/Layouts'
 import { supabase } from '@/libs/supabase/client'
 import { useAuth, withAuth } from '@/hooks/auth'
 import { yupResolver } from '@hookform/resolvers/yup'
 import AccountSettingsLayout from '@/components/settings/account/AccountSettingsLayout'
-import FormSection from '../../components/FormSection'
-import toast from 'react-hot-toast'
+import FormSection from '@/components/FormSection'
+import { Input } from '@/components/ui'
+import { ChangePassword } from '@/validations/auth'
 // Mui
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 
 interface PasswordInput {
   username: string
@@ -54,7 +54,7 @@ const SettingPassword = () => {
       <AccountSettingsLayout>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <FormSection>
-            <TextField
+            <Input
               autoComplete="username"
               type="email"
               label="Email"
@@ -64,7 +64,7 @@ const SettingPassword = () => {
               {...register('username')}
               disabled
             />
-            <TextField
+            <Input
               autoComplete="new-password"
               type="password"
               label="New Password"
@@ -72,7 +72,7 @@ const SettingPassword = () => {
               helperText={errors.password?.message}
               {...register('password')}
             />
-            <TextField
+            <Input
               autoComplete="new-password"
               type="password"
               label="Confirm New Password"

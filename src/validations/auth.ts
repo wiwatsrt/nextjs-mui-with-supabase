@@ -27,3 +27,8 @@ export const ChangePassword = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
 })
+
+export const UpdateAccount = yup.object().shape({
+  displayName: yup.string(),
+  email: yup.string().email(),
+})

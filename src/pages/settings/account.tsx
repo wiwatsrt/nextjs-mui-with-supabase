@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-// Mui
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
 import { useAuth, withAuth } from '@/hooks/auth'
 import { supabase } from '@/libs/supabase/client'
-import AccountSettingsLayout from '@/components/settings/account/AccountSettingsLayout'
 import { AppLayout } from '@/components/Layouts'
+import AccountSettingsLayout from '@/components/settings/account/AccountSettingsLayout'
 import FormSection from '@/components/FormSection'
+import { Input } from '@/components/ui'
+import { UpdateAccount } from '@/validations'
+// Mui
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 
 interface SettingAccountInput {
   displayName: string
@@ -21,17 +21,12 @@ interface SettingAccountInput {
 const Account = () => {
   const { authUser } = useAuth()
 
-  const schema = yup.object().shape({
-    displayName: yup.string(),
-    email: yup.string().email(),
-  })
-
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm<SettingAccountInput>({ resolver: yupResolver(schema) })
+  } = useForm<SettingAccountInput>({ resolver: yupResolver(UpdateAccount) })
 
   useEffect(() => {
     if (authUser) {
@@ -63,15 +58,15 @@ const Account = () => {
           <AccountSettingsLayout>
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
               <FormSection>
-                <TextField
-                  type="email"
-                  label="Email"
+                <Input
                   disabled
                   error={!!errors.email?.message}
                   helperText={errors.email?.message}
+                  label="Email"
+                  type="email"
                   {...register('email')}
                 />
-                <TextField
+                <Input
                   type="text"
                   label="Display Name"
                   error={!!errors.displayName?.message}
