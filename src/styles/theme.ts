@@ -28,13 +28,6 @@ let theme = createTheme({
   spacing: 10,
   typography: {
     fontFamily: '"Nunito", "Noto Sans Thai", sans-serif',
-    body1: {
-      fontSize: 14,
-    },
-    subtitle2: {
-      color: '#6b7280',
-      fontWeight: 400,
-    },
   },
 })
 
