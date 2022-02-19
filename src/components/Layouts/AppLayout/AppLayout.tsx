@@ -4,7 +4,7 @@ import AccountMenu from './AccountMenu'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
 import SidebarMenu from './SidebarMenu'
-
+// MUI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Toolbar from '@mui/material/Toolbar'
@@ -71,3 +71,32 @@ export const AppLayout = ({
     </>
   )
 }
+
+interface sectionTitleProps {
+  title: string
+  description?: string
+  toolbar?: JSX.Element
+}
+
+const SectionTitle = ({ title, description, toolbar }: sectionTitleProps) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        marginBottom: 3,
+      }}
+    >
+      <Box sx={{ flexGrow: 1 }}>
+        <Typography variant="h5" component="h3">
+          {title}
+        </Typography>
+        {description && (
+          <Typography variant="subtitle2">{description}</Typography>
+        )}
+      </Box>
+      {toolbar}
+    </Box>
+  )
+}
+
+AppLayout.SectionTitle = SectionTitle
